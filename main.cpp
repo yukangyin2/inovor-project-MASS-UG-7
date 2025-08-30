@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include "linear_interpolation.h"
 
 // main function
 int main(int argc, char *argv[])
@@ -25,7 +26,7 @@ int main(int argc, char *argv[])
     float value; // TITAN's response value
 
     // loop to query TITAN
-    for (int i = 0; i < array_size && queries < query_max; i++) // loop if we havent reached the end of array_size and max queries
+    for (int i = 0; i < array_size && queries < query_max; i += 2) // loop if we havent reached the end of array_size and max queries
     {
         // std::cout << "Querying Index: ";
         std::cout << i << std::endl
@@ -40,7 +41,8 @@ int main(int argc, char *argv[])
         if (i == array_size - 2 && queries < query_max)
         {
             // std::cout << "Querying Index: ";
-            std::cout << array_size - 1 << std::endl << std::flush;
+            std::cout << array_size - 1 << std::endl
+                      << std::flush;
 
             std::cin >> value;
             prediction_vector[array_size - 1] = value;
@@ -70,6 +72,8 @@ int main(int argc, char *argv[])
             }
         }
     }
+
+    linear_interpolate(prediction_vector, queried);
 
     // print prediction values
     for (int k = 0; k < array_size; k++)
